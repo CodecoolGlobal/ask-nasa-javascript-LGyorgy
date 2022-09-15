@@ -1,4 +1,5 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
+import "./Modal.css";
 
 export function useDataFetching(defaultUrl) {
     const [data, setData] = useState(null);
