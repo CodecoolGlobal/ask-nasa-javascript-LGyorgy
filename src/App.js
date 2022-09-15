@@ -1,15 +1,42 @@
+import { useState, useEffect } from "react";
 export default App;
 
 function App() {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const apiUrl = "https://6322dba8362b0d4e7dd4d80a.mockapi.io/apod";
+
+  useEffect(() => {
+    fetch(apiUrl)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            `This is an HTTP error: The status is ${response.status}`
+          );
+        }
+        return response.json()
+      })
+      .then((data) => setData(data))
+      .catch((err) => {
+        console.log(err.message);
+       });
+   }, []);
+
+  const content = (data === null)
+    ? <p>Loading...</p>
+    : <APoD data={data}/>;
+
   return (
     <div>
       <h1>Astronomy Picture of the Day</h1>
-      <APoD />
+      {content}
     </div>
   );
 }
 
-function APoD() {
+function APoD(props) {
   const dateLocales = "en-US"
   const dateOptions = {
     weekday: 'long',
@@ -18,15 +45,19 @@ function APoD() {
     day: 'numeric',
   };
 
+  if (props.data === null) {
+    return <div className="apod">Loading...</div>
+  }
+
   return (
     <div className="apod">
-      <p className="apod-date">{ new Date("2022-09-15").toLocaleDateString(dateLocales, dateOptions) }</p>
-      <img className="apod-image" src="https://apod.nasa.gov/apod/image/2209/HarvestMoonCastiglioneSicily1024.jpg" />
+      <p className="apod-date">{ new Date(props.data.date).toLocaleDateString(dateLocales, dateOptions) }</p>
+      <img className="apod-image" src={props.data.url} />
       <p className="apod-title">
-        <strong>Harvest Moon over Sicily</strong>
+        <strong>{props.data.title}</strong>
       </p>
       <p className="apod-explanation">
-        <strong>Explanation:</strong> For northern hemisphere dwellers, September's Full Moon was the Harvest Moon. Reflecting warm hues at sunset it rises over the historic town of Castiglione di Sicilia in this telephoto view from September 9. Famed in festival, story, and song Harvest Moon is just the traditional name of the full moon nearest the autumnal equinox. According to lore the name is a fitting one. Despite the diminishing daylight hours as the growing season drew to a close, farmers could harvest crops by the light of a full moon shining on from dusk to dawn.   Harvest Full Moon 2022: Notable Submissions to APOD
+        <strong>Explanation:</strong> {props.data.explanation}
       </p>
     </div>
   );
