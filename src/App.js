@@ -42,36 +42,17 @@ function PageLink(props) {
 }
 
 function APoDApp() {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [date, setDate] = useState((new Date).toISOString().substring(0,10));
-
   const apiUrl = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY";
-
-  const fetchData = async () => {
-    setData(null);
-    try {
-      const response = await fetch(apiUrl + `&date=${date}`);
-      if (!response.ok) {
-        throw new Error(
-          `HTTP error: The status is ${response.status}`
-        );
-      }
-      let data = await response.json();
-      setData(data);
-      setError(null);
-    } catch(err) {
-      setError(err.message);
-      setData(null)
-    } finally {
-      setLoading(false);
-    }
+  const [date, setDate] = useState((new Date).toISOString().substring(0,10));
+  const getFullUrl = () => {
+    return apiUrl + `&date=${date}`;
   };
 
+  const [data, loading, error, setUrl] = useDataFetching(getFullUrl());
+
   useEffect(() => {
-    fetchData();
-  }, [date]);
+    setUrl(getFullUrl());
+  }, [date])
 
   return (
     <div>
@@ -139,16 +120,34 @@ function APoD(props) {
 }
 
 function GalleryApp() {
+  const apiUrl = "https://6322dba8362b0d4e7dd4d80a.mockapi.io/gallery";
+
+  const [data, loading, error, setUrl] = useDataFetching(apiUrl);
+
+  return (
+    <div className="gallery-app">
+      <h1>Gallery</h1>
+      {loading && <div>Loading...</div>}
+      {error && (
+        <div>There was an error while fetching data: {error}</div>
+      )}
+      {data && (
+        <div>{data.toString()}</div>
+      )}
+    </div>
+  );
+}
+
+function useDataFetching(defaultUrl) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const apiUrl = "https://6322dba8362b0d4e7dd4d80a.mockapi.io/gallery";
+  const [url, setUrl] = useState(defaultUrl);
 
   const fetchData = async () => {
     setData(null);
     try {
-      const response = await fetch(apiUrl);
+      const response = await fetch(url);
       if (!response.ok) {
         throw new Error(
           `HTTP error: The status is ${response.status}`
@@ -167,18 +166,7 @@ function GalleryApp() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [url]);
 
-  return (
-    <div className="gallery-app">
-      <h1>Gallery</h1>
-      {loading && <div>Loading...</div>}
-      {error && (
-        <div>There was an error while fetching data: {error}</div>
-      )}
-      {data && (
-        <div>{data.toString()}</div>
-      )}
-    </div>
-  );
+  return [data, loading, error, setUrl];
 }
