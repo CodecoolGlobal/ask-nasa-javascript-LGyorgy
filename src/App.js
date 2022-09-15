@@ -44,7 +44,7 @@ function PageLink(props) {
 
 function APoDApp() {
   const apiUrl = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY";
-  const [date, setDate] = useState((new Date).toISOString().substring(0,10));
+  const [date, setDate] = useState((new Date()).toISOString().substring(0,10));
   const getFullUrl = () => {
     return apiUrl + `&date=${date}`;
   };
@@ -101,9 +101,9 @@ function APoD(props) {
   let mediaContent = <p>No media</p>;
 
   if (props.data.media_type === "video") {
-    mediaContent = <iframe className="apod-video" width="420" height="315" src={props.data.url}></iframe>;
+    mediaContent = <iframe className="apod-video" width="420" height="315" title={props.data.title} src={props.data.url}></iframe>;
   } else {
-    mediaContent = <img className="apod-image" src={props.data.url} />
+    mediaContent = <img className="apod-image" alt={props.data.title} src={props.data.url} />
   }
 
   return (
