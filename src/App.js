@@ -5,10 +5,13 @@ function App() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [date, setDate] = useState((new Date).toISOString().substring(0,10));
 
-  const apiUrl = "https://6322dba8362b0d4e7dd4d80a.mockapi.io/apaod";
+  const apiUrl = "https://6322dba8362b0d4e7dd4d80a.mockapi.io/apod";
 
-  useEffect(() => {
+  const fetchAPoDData = () => {
+    setData(null);
+    setLoading(true);
     fetch(apiUrl)
       .then((response) => {
         if (!response.ok) {
@@ -29,11 +32,20 @@ function App() {
       .finally(() => {
         setLoading(false)
       })
+  };
+
+  useEffect(() => {
+    fetchAPoDData();
   }, []);
 
   return (
     <div>
       <h1>Astronomy Picture of the Day</h1>
+      <DatePicker date={date} onChange={(date) => {
+          setDate(date);
+          fetchAPoDData();
+        }}
+      />
       {loading && <div>Loading...</div>}
       {error && (
         <div>There was an error while fetching data: {error}</div>
@@ -42,6 +54,18 @@ function App() {
         <APoD data={data}/>
       )}
     </div>
+  );
+}
+
+function DatePicker(props) {
+  const handleChange = (e) => {
+    props.onChange(e.target.value);
+  }
+
+  return (
+    <form>
+      <input onChange={handleChange} type="date" name="date" value={props.date}/>
+    </form>
   );
 }
 
