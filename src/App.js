@@ -164,7 +164,9 @@ function GalleryItemCard(props) {
 
   const modalBody = (
     <div>
-      <img className="gallery-image" width="auto" height="200px" src={imageUrl} alt={props.title}/>
+      <div className="gallery-modal-image">
+        <img className="gallery-image" width="auto" height="200px" src={imageUrl} alt={props.title}/>
+      </div>
       <p><strong>Date:</strong> {new Date(props.date).toLocaleDateString(dateLocales, dateOptions)}</p>
       <p><strong>Explanation:</strong> {props.explanation}</p>
     </div>

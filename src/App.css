@@ -20,6 +20,10 @@
     margin: 10px;
 }
 
+.gallery-modal-image {
+    text-align: center;
+}
+
 /* Modal style */
 .modal {
     position: fixed;
@@ -47,6 +51,7 @@
 }
 
 .modal-body {
+    text-align: justify;
     padding: 10px;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
