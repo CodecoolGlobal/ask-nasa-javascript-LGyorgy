@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import "./App.css";
 export default App;
 
 function App() {
@@ -140,7 +141,7 @@ function GalleryApp() {
 
 function Gallery(props) {
   return (
-      <div>{props.data.map( (item) => {
+      <div className="gallery">{props.data.map( (item) => {
         return <GalleryImage {...item} />
       })}
       </div>
@@ -148,8 +149,9 @@ function Gallery(props) {
 }
 
 function GalleryImage(props) {
-  return <div className="gallery-image">
-    {props.title}
+  return <div className="gallery-item-card">
+    <img className="gallery-image" width="auto" height="100px" src={props.url} alt={props.title}/>
+    <p className="gallery-image-title">{props.title}</p>
   </div>;
 }
 
