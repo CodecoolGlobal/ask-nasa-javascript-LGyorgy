@@ -2,6 +2,46 @@ import { useState, useEffect } from "react";
 export default App;
 
 function App() {
+  const pages = {
+    apod: 0,
+    gallery: 1,
+  };
+
+  const pageRenders = {
+    [pages.apod]: <APoDApp />,
+    [pages.gallery]: <GalleryApp />,
+  };
+
+  const switchPage = (to) => {
+    setCurrentPage(to);
+  };
+
+  const [currentPage, setCurrentPage] = useState(pages.apod);
+
+  let pageLinks = (
+    <div>
+      <p><PageLink text="Astronomy Picture of the Day" onClick={() => switchPage(pages.apod)} /></p>
+      <p><PageLink text="Gallery" onClick={() => switchPage(pages.gallery)} /></p>
+    </div>
+  )
+  
+  return (
+    <div>
+      {pageLinks}
+      {pageRenders[currentPage]}
+    </div>
+  )
+}
+
+function PageLink(props) {
+  return (
+    <a href="#" onClick={props.onClick}>
+      {props.text}
+    </a>
+  );
+}
+
+function APoDApp() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -94,6 +134,14 @@ function APoD(props) {
       <p className="apod-explanation">
         <strong>Explanation:</strong> {props.data.explanation}
       </p>
+    </div>
+  );
+}
+
+function GalleryApp() {
+  return (
+    <div className="gallery-app">
+      <h1>Gallery</h1>
     </div>
   );
 }
