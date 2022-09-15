@@ -142,7 +142,7 @@ function GalleryApp() {
 function Gallery(props) {
   return (
       <div className="gallery">{props.data.map( (item) => {
-        return <GalleryImage {...item} />
+        return <GalleryImage key={item.date} {...item} />
       })}
       </div>
   );
