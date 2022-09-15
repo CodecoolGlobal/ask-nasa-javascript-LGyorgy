@@ -149,8 +149,12 @@ function Gallery(props) {
 }
 
 function GalleryImage(props) {
+  let imageUrl = props.media_type === "video"
+    ? props.thumbnail_url
+    : props.url;
+
   return <div className="gallery-item-card">
-    <img className="gallery-image" width="auto" height="100px" src={props.url} alt={props.title}/>
+    <img className="gallery-image" width="auto" height="100px" src={imageUrl} alt={props.title}/>
     <p className="gallery-image-title">{props.title}</p>
   </div>;
 }
