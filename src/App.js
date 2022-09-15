@@ -149,13 +149,16 @@ function Gallery(props) {
 }
 
 function GalleryItemCard(props) {
+  const [showModal, setShowModal] = useState(false);
+
   let imageUrl = props.media_type === "video"
     ? props.thumbnail_url
     : props.url;
 
-  return <div className="gallery-item-card">
+  return <div className="gallery-item-card" onClick={() => {if (!showModal) setShowModal(true)}}>
     <img className="gallery-image" width="auto" height="100px" src={imageUrl} alt={props.title}/>
     <p className="gallery-image-title">{props.title}</p>
+    <Modal onClose={() => setShowModal(false)} show={showModal}/>
   </div>;
 }
 
@@ -189,4 +192,26 @@ function useDataFetching(defaultUrl) {
   }, [url]);
 
   return [data, loading, error, setUrl];
+}
+
+function Modal(props) {
+  if (!props.show) {
+    return null;
+  }
+
+  return (
+    <div className="modal">
+      <div className="modal-content">
+        <div className="modal-header">
+          <h4 className="modal-title">Modal title</h4>
+        </div>
+        <div className="modal-body">
+          Modal content
+        </div>
+        <div className="modal-footer">
+          <button className="button" onClick={props.onClose}>Close</button>
+        </div>
+      </div>
+    </div>
+  );
 }
