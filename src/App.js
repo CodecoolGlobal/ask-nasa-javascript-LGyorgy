@@ -7,43 +7,37 @@ function App() {
   const [error, setError] = useState(null);
   const [date, setDate] = useState((new Date).toISOString().substring(0,10));
 
-  const apiUrl = "https://6322dba8362b0d4e7dd4d80a.mockapi.io/apod";
+  const apiUrl = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY";
 
-  const fetchAPoDData = () => {
+  const fetchData = async () => {
     setData(null);
-    setLoading(true);
-    fetch(apiUrl)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(
-            `HTTP error: The status is ${response.status}`
-          );
-        }
-        return response.json()
-      })
-      .then((data) => {
-        setData(data)
-        setError(null)
-      })
-      .catch((err) => {
-        setError(err.message)
-        console.log(err.message);
-      })
-      .finally(() => {
-        setLoading(false)
-      })
+    try {
+      const response = await fetch(apiUrl + `&date=${date}`);
+      if (!response.ok) {
+        throw new Error(
+          `HTTP error: The status is ${response.status}`
+        );
+      }
+      let data = await response.json();
+      setData(data);
+      setError(null);
+    } catch(err) {
+      setError(err.message);
+      setData(null)
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    fetchAPoDData();
-  }, []);
+    fetchData();
+  }, [date]);
 
   return (
     <div>
       <h1>Astronomy Picture of the Day</h1>
       <DatePicker date={date} onChange={(date) => {
           setDate(date);
-          fetchAPoDData();
         }}
       />
       {loading && <div>Loading...</div>}
