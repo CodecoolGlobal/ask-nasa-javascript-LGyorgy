@@ -165,27 +165,26 @@ function useDataFetching(defaultUrl) {
   const [error, setError] = useState(null);
   const [url, setUrl] = useState(defaultUrl);
 
-  const fetchData = async () => {
-    setData(null);
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(
-          `HTTP error: The status is ${response.status}`
-        );
-      }
-      let data = await response.json();
-      setData(data);
-      setError(null);
-    } catch(err) {
-      setError(err.message);
-      setData(null)
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchData = async () => {
+      setData(null);
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(
+            `HTTP error: The status is ${response.status}`
+          );
+        }
+        let data = await response.json();
+        setData(data);
+        setError(null);
+      } catch(err) {
+        setError(err.message);
+        setData(null)
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchData();
   }, [url]);
 
