@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import "./App.css";
 export default App;
 
@@ -45,15 +45,15 @@ function PageLink(props) {
 function APoDApp() {
   const apiUrl = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY";
   const [date, setDate] = useState((new Date()).toISOString().substring(0,10));
-  const getFullUrl = () => {
+  const getFullUrl = useCallback(() => {
     return apiUrl + `&date=${date}`;
-  };
+  }, [apiUrl, date]);
 
   const [data, loading, error, setUrl] = useDataFetching(getFullUrl());
 
   useEffect(() => {
     setUrl(getFullUrl());
-  }, [date])
+  }, [setUrl, getFullUrl])
 
   return (
     <div>
