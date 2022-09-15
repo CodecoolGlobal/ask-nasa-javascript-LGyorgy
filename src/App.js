@@ -142,13 +142,13 @@ function GalleryApp() {
 function Gallery(props) {
   return (
       <div className="gallery">{props.data.map( (item) => {
-        return <GalleryImage key={item.date} {...item} />
+        return <GalleryItemCard key={item.date} {...item} />
       })}
       </div>
   );
 }
 
-function GalleryImage(props) {
+function GalleryItemCard(props) {
   let imageUrl = props.media_type === "video"
     ? props.thumbnail_url
     : props.url;
