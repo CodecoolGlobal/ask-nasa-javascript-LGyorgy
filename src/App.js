@@ -6,32 +6,41 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const apiUrl = "https://6322dba8362b0d4e7dd4d80a.mockapi.io/apod";
+  const apiUrl = "https://6322dba8362b0d4e7dd4d80a.mockapi.io/apaod";
 
   useEffect(() => {
     fetch(apiUrl)
       .then((response) => {
         if (!response.ok) {
           throw new Error(
-            `This is an HTTP error: The status is ${response.status}`
+            `HTTP error: The status is ${response.status}`
           );
         }
         return response.json()
       })
-      .then((data) => setData(data))
+      .then((data) => {
+        setData(data)
+        setError(null)
+      })
       .catch((err) => {
+        setError(err.message)
         console.log(err.message);
-       });
-   }, []);
-
-  const content = (data === null)
-    ? <p>Loading...</p>
-    : <APoD data={data}/>;
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }, []);
 
   return (
     <div>
       <h1>Astronomy Picture of the Day</h1>
-      {content}
+      {loading && <div>Loading...</div>}
+      {error && (
+        <div>There was an error while fetching data: {error}</div>
+      )}
+      {data && (
+        <APoD data={data}/>
+      )}
     </div>
   );
 }
