@@ -121,9 +121,14 @@ function APoD(props) {
 }
 
 function GalleryApp() {
-  const apiUrl = "https://6322dba8362b0d4e7dd4d80a.mockapi.io/gallery";
+  const apiUrl = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&thumbs=True";
 
-  const [data, loading, error, setUrl] = useDataFetching(apiUrl);
+  const todayDate = new Date()
+  const todayStr = todayDate.toISOString().substring(0,10);
+  const fourWeeksAgoDate = new Date(todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate() - (7 * 4));
+  const fourWeeksAgoStr = fourWeeksAgoDate.toISOString().substring(0,10);
+
+  const [data, loading, error, setUrl] = useDataFetching(apiUrl + `&end_date=${todayStr}&start_date=${fourWeeksAgoStr}`);
 
   return (
     <div className="gallery-app">
@@ -133,7 +138,7 @@ function GalleryApp() {
         <div>There was an error while fetching data: {error}</div>
       )}
       {data && (
-        <Gallery data={data} />
+        <Gallery data={[...data].reverse()} />
       )}
     </div>
   );
