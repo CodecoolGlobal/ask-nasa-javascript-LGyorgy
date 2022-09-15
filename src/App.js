@@ -132,10 +132,25 @@ function GalleryApp() {
         <div>There was an error while fetching data: {error}</div>
       )}
       {data && (
-        <div>{data.toString()}</div>
+        <Gallery data={data} />
       )}
     </div>
   );
+}
+
+function Gallery(props) {
+  return (
+      <div>{props.data.map( (item) => {
+        return <GalleryImage {...item} />
+      })}
+      </div>
+  );
+}
+
+function GalleryImage(props) {
+  return <div className="gallery-image">
+    {props.title}
+  </div>;
 }
 
 function useDataFetching(defaultUrl) {
