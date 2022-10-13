@@ -4,7 +4,8 @@ import "./GalleryApp.css";
 export default GalleryApp;
 
 function GalleryApp() {
-    const apiUrl = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&thumbs=True";
+    const apiKey = process.env.REACT_APP_API_KEY;
+    const apiUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&thumbs=True`;
 
     const todayDate = new Date()
     const todayStr = todayDate.toISOString().substring(0, 10);

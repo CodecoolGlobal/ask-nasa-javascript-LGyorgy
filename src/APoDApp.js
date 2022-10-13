@@ -3,7 +3,8 @@ import { useDataFetching, DatePicker } from "./Utils"
 export default APoDApp;
 
 function APoDApp() {
-    const apiUrl = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY";
+    const apiKey = process.env.REACT_APP_API_KEY;
+    const apiUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`;
     const [date, setDate] = useState((new Date()).toISOString().substring(0, 10));
     const getFullUrl = useCallback(() => {
         return apiUrl + `&date=${date}`;
