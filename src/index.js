@@ -5,12 +5,28 @@ import {
     createBrowserRouter,
     RouterProvider
   } from "react-router-dom";
-import App from './App';
+import Root from './routes/Root';
+import APoDApp from './routes/APoDApp';
+import GalleryApp from './routes/GalleryApp';
 
 const router = createBrowserRouter([
     {
       path: "/",
-      element: <App />,
+      element: <Root />,
+      children: [
+        {
+            index: true,
+            element: <APoDApp />
+        },
+        {
+            path: "apod",
+            element: <APoDApp />
+        },
+        {
+            path: "gallery",
+            element: <GalleryApp />
+        },
+      ]
     },
   ]);
 
