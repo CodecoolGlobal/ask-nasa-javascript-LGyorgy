@@ -7,7 +7,7 @@ import {
   } from "react-router-dom";
 import Root from './routes/Root';
 import APoDApp from './routes/APoDApp';
-import GalleryApp from './routes/GalleryApp';
+import Gallery from './routes/Gallery';
 
 const router = createBrowserRouter([
     {
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
         },
         {
             path: "gallery",
-            element: <GalleryApp />
+            element: <Gallery />
         },
       ]
     },
