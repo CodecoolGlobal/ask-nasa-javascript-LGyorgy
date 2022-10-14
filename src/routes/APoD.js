@@ -19,11 +19,13 @@ const APoD = () => {
 
     return (
         <div>
-            <h1>Astronomy Picture of the Day</h1>
-            <DatePicker date={date} onChange={(date) => {
-                setDate(date);
-            }}
-            />
+            <h1 className="text-center">Astronomy Picture of the Day</h1>
+            <div className="text-center">
+                <DatePicker date={date} onChange={(date) => {
+                    setDate(date);
+                }}
+                />
+            </div>
             {loading && <div>Loading...</div>}
             {error && (
                 <div>There was an error while fetching data: {error}</div>
