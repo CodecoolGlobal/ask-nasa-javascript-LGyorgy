@@ -1,7 +1,7 @@
 import "../../css/Modal.css";
 
-export default function Modal(props) {
-    if (!props.show) {
+ const Modal = ({ title, body, onClose, show }) => {
+    if (!show) {
         return null;
     }
 
@@ -9,15 +9,17 @@ export default function Modal(props) {
         <div className="modal">
             <div className="modal-content">
                 <div className="modal-header">
-                    <h4 className="modal-title">{props.title}</h4>
+                    <h4 className="modal-title">{title}</h4>
                 </div>
                 <div className="modal-body">
-                    {props.body}
+                    {body}
                 </div>
                 <div className="modal-footer">
-                    <button className="button" onClick={props.onClose}>Close</button>
+                    <button className="button" onClick={onClose}>Close</button>
                 </div>
             </div>
         </div>
     );
 }
+
+export default Modal;
