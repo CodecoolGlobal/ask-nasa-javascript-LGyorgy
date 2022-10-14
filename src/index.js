@@ -6,7 +6,7 @@ import {
     RouterProvider
   } from "react-router-dom";
 import Root from './routes/Root';
-import APoDApp from './routes/APoDApp';
+import APoD from './routes/APoD';
 import Gallery from './routes/Gallery';
 
 const router = createBrowserRouter([
@@ -16,11 +16,11 @@ const router = createBrowserRouter([
       children: [
         {
             index: true,
-            element: <APoDApp />
+            element: <APoD />
         },
         {
             path: "apod",
-            element: <APoDApp />
+            element: <APoD />
         },
         {
             path: "gallery",
