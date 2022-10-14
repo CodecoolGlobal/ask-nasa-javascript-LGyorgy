@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import APoDComponent from "../components/apod/APoDComponent";
-import { useDataFetching, DatePicker } from "../components/shared/Utils"
+import DatePicker from "../components/shared/DatePicker"
+import useDataFetching from "../utils/useDataFetching";
 
 const APoD = () => {
     const apiKey = process.env.REACT_APP_API_KEY;

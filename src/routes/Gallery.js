@@ -1,5 +1,5 @@
 import GalleryComponent from "../components/gallery/GalleryComponent";
-import { useDataFetching } from "../components/shared/Utils";
+import useDataFetching from "../utils/useDataFetching";
 import "../css/GalleryApp.css";
 
 const Gallery = () => {

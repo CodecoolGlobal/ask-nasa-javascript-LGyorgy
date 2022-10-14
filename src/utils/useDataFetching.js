@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import "../../css/Modal.css";
 
-export function useDataFetching(defaultUrl) {
+export default function useDataFetching(defaultUrl) {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -31,40 +30,4 @@ export function useDataFetching(defaultUrl) {
     }, [url]);
 
     return [data, loading, error, setUrl];
-}
-
-
-export function Modal(props) {
-    if (!props.show) {
-        return null;
-    }
-
-    return (
-        <div className="modal">
-            <div className="modal-content">
-                <div className="modal-header">
-                    <h4 className="modal-title">{props.title}</h4>
-                </div>
-                <div className="modal-body">
-                    {props.body}
-                </div>
-                <div className="modal-footer">
-                    <button className="button" onClick={props.onClose}>Close</button>
-                </div>
-            </div>
-        </div>
-    );
-}
-
-
-export function DatePicker(props) {
-    const handleChange = (e) => {
-        props.onChange(e.target.value);
-    }
-
-    return (
-        <form>
-            <input onChange={handleChange} type="date" name="date" value={props.date} />
-        </form>
-    );
 }

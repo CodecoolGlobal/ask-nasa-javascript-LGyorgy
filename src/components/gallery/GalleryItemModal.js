@@ -1,4 +1,4 @@
-import { Modal } from "../shared/Utils";
+import Modal from "../shared/Modal";
 
 const GalleryItemModal = ({ item, show, onClose }) => {
     const dateLocales = "en-US"
