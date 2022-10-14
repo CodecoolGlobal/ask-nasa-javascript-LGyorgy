@@ -1,11 +1,13 @@
-export default function DatePicker(props) {
+const DatePicker = ({ date, onChange }) => {
     const handleChange = (e) => {
-        props.onChange(e.target.value);
+        onChange(e.target.value);
     }
 
     return (
         <form>
-            <input onChange={handleChange} type="date" name="date" value={props.date} />
+            <input onChange={handleChange} type="date" name="date" value={date} />
         </form>
     );
 }
+
+export default DatePicker;
