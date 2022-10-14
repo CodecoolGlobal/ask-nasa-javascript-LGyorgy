@@ -1,11 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import './css/index.css';
+import {
+    createBrowserRouter,
+    RouterProvider
+  } from "react-router-dom";
+import Root from './routes/Root';
+import APoD from './routes/APoD';
+import Gallery from './routes/Gallery';
+
+const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Root />,
+      children: [
+        {
+            index: true,
+            element: <APoD />
+        },
+        {
+            path: "apod",
+            element: <APoD />
+        },
+        {
+            path: "gallery",
+            element: <Gallery />
+        },
+      ]
+    },
+  ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
