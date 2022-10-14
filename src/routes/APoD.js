@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import APoDComponent from "../components/apod/APoDComponent";
 import { useDataFetching, DatePicker } from "../components/shared/Utils"
 
-function APoD() {
+const APoD = () => {
     const apiKey = process.env.REACT_APP_API_KEY;
     const apiUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`;
     const [date, setDate] = useState((new Date()).toISOString().substring(0, 10));
