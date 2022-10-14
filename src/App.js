@@ -1,6 +1,6 @@
 import { useState } from "react";
-import APoDApp from "./APoDApp";
-import GalleryApp from "./GalleryApp";
+import APoDApp from "./routes/APoDApp";
+import GalleryApp from "./routes/GalleryApp";
 export default App;
 
 function App() {

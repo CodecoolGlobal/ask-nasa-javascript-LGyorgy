@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useDataFetching, Modal } from "./Utils";
-import "./GalleryApp.css";
+import { useDataFetching, Modal } from "../components/shared/Utils";
+import "../css/GalleryApp.css";
 export default GalleryApp;
 
 function GalleryApp() {

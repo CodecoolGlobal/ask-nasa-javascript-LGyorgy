@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./Modal.css";
+import "../../css/Modal.css";
 
 export function useDataFetching(defaultUrl) {
     const [data, setData] = useState(null);
