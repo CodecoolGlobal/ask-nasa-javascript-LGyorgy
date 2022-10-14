@@ -1,8 +1,8 @@
 import GalleryItemCard from "./GalleryItemCard";
 
-const GalleryComponent = (props) => {
+const GalleryComponent = ({ data }) => {
     return (
-        <div className="gallery">{props.data.map((item) => {
+        <div className="gallery">{data.map((item) => {
             return <GalleryItemCard key={item.date} {...item} />
         })}
         </div>
