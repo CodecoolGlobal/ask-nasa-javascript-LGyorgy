@@ -26,7 +26,7 @@ $ npm start
 ```
 ## Configuration
 
-The application utilizes the [NASA API](https://api.nasa.gov/) to aquire data for presentation and it is configured to use the default demo API key, when fetching data, so it has a fairly limited request rate.
+The application utilizes the [NASA API](https://api.nasa.gov/) to acquire data for presentation and it is configured to use the default demo API key, when fetching data, so it has a fairly limited request rate.
 
 If you wish to go over this limit, you might want to generate your own API key on the API's website, to use with the application. To do so, please take the following steps:
 
