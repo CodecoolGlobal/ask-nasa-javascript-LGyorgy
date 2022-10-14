@@ -1,6 +1,6 @@
 import { Modal } from "../shared/Utils";
 
-const GalleryItemModal = (props) => {
+const GalleryItemModal = ({ item, show, onClose }) => {
     const dateLocales = "en-US"
     const dateOptions = {
         year: 'numeric',
@@ -8,22 +8,22 @@ const GalleryItemModal = (props) => {
         day: 'numeric',
     };
 
-    const imageUrl = props.item.media_type === "video"
-        ? props.item.thumbnail_url
-        : props.item.url;
+    const imageUrl = item.media_type === "video"
+        ? item.thumbnail_url
+        : item.url;
 
     const modalBody = (
         <div>
             <div className="gallery-modal-image">
-                <img className="gallery-image" width="auto" height="200px" src={imageUrl} alt={props.title} />
+                <img className="gallery-image" width="auto" height="200px" src={imageUrl} alt={item.title} />
             </div>
-            <p><strong>Date:</strong> {new Date(props.item.date).toLocaleDateString(dateLocales, dateOptions)}</p>
-            <p><strong>Explanation:</strong> {props.item.explanation}</p>
+            <p><strong>Date:</strong> {new Date(item.date).toLocaleDateString(dateLocales, dateOptions)}</p>
+            <p><strong>Explanation:</strong> {item.explanation}</p>
         </div>
     );
 
     return (
-        <Modal title={props.item.title} body={modalBody} show={props.show} onClose={props.onClose} />
+        <Modal title={item.title} body={modalBody} show={show} onClose={onClose} />
     );
 }
 
