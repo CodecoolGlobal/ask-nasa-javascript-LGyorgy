@@ -21,12 +21,13 @@ const APoDComponent = ({ data }) => {
 
     return (
         <div className="apod">
-            <p className="apod-date">{new Date(data.date).toLocaleDateString(dateLocales, dateOptions)}</p>
-            <div className="apod-media-content">{mediaContent}</div>
-            <p className="apod-title">
+            
+            <p className="apod-title m-3 text-center">
                 <strong>{data.title}</strong>
             </p>
-            <p className="apod-explanation">
+            <div className="apod-media-content text-center">{mediaContent}</div>
+            <p className="apod-date m-3 text-center">{new Date(data.date).toLocaleDateString(dateLocales, dateOptions)}</p>
+            <p className="text-center">
                 <strong>Explanation:</strong> {data.explanation}
             </p>
         </div>
